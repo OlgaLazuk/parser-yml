@@ -33,13 +33,12 @@ class LoadingPriceJob implements ShouldQueue
      */
     public function handle()
     {
-//        $this->url = 'https://www.21vek.by/files/price/market.yml';
-//        $file_name = basename($this->url);
-//        file_put_contents(
-//            $_SERVER['DOCUMENT_ROOT'] ."/../storage/app/public/" . $file_name
-////            iconv('windows-1251//IGNORE', 'UTF-8//IGNORE',$file_name)
-//            ,
-//            file_get_contents($this->url)
-//        );
-   }
+//        if (!file_exists(basename($this->url))) {
+//            $this->url = 'https://www.21vek.by/files/price/market.yml';
+//            $file_name = basename($this->url);
+//            file_put_contents(
+//                $_SERVER['DOCUMENT_ROOT'] . "/../storage/app/public/" . $file_name, file_get_contents($this->url));
+//        }
+//        return 'File exist!';
+    }
 }

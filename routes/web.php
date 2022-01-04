@@ -1,14 +1,11 @@
 <?php
 
 use App\Http\Controllers\CatalogController;
-use App\Http\Controllers\DownloadPriceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Middleware\CheckPassword;
 use App\Service\DownloadPriceService;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('main_page');
@@ -28,10 +25,4 @@ Route::post('/login', [LoginController::class, 'checkLogin'])
     ->name('checkLogin');
 
 
-Route::get('/downloadPrice',[DownloadPriceService::class, 'downloadPrice'])
-    ->name('downloadPrice');
-
-
-//Route::get('/downloadPrice',[Artisan::call('download:price')]);
-//    ->name('downloadPrice');
 
