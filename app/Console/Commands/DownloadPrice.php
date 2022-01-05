@@ -29,5 +29,6 @@ class DownloadPrice extends Command
     public function handle()
     {
         (new DownloadPriceService)->downloadPrice();
+        (new DownloadPriceService)->parser();
     }
 }

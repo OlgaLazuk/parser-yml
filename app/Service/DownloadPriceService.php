@@ -3,11 +3,22 @@
 namespace App\Service;
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Yaml\Yaml;
 use XMLReader;
 
 class DownloadPriceService
 {
     public function downloadPrice()
+    {
+        if (!Storage::disk('public')->exists('price.yml')) {
+            $url = 'https://www.21vek.by/files/price/market.yml';
+            Storage::disk('public')
+                ->putFileAs('', $url, 'price.yml');
+        } else echo 'File exist';
+    }
+
+    public function parser()
     {
         $reader = new XMLReader();
         $reader->open('https://www.21vek.by/files/price/market.yml');
@@ -56,5 +67,4 @@ class DownloadPriceService
             }
         }
     }
-    // LoadingPriceJob::dispatch('url')->onQueue('download');
 }
