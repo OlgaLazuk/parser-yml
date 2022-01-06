@@ -11,11 +11,12 @@ class DownloadPriceService
 {
     public function downloadPrice()
     {
-        if (!Storage::disk('public')->exists('price.yml')) {
-            $url = 'https://www.21vek.by/files/price/market.yml';
+        $url = 'https://www.21vek.by/files/price/market.yml';
+        if (!Storage::disk('public')->exists(basename($url))) {
             Storage::disk('public')
-                ->putFileAs('', $url, 'price.yml');
-        } else echo 'File exist';
+                ->putFileAs('', $url, basename($url));
+        } else echo 'File exists!!!';
+
     }
 
     public function parser()
