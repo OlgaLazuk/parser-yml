@@ -16,13 +16,14 @@ class DownloadPriceService
             Storage::disk('public')
                 ->putFileAs('', $url, basename($url));
         } else echo 'File exists!!!';
-
     }
 
     public function parser()
     {
         $reader = new XMLReader();
         $reader->open('https://www.21vek.by/files/price/market.yml');
+
+        $count = 0;
 
         while ($reader->read()) {
 
@@ -50,20 +51,22 @@ class DownloadPriceService
                                 } else {
                                     $offer[$name] = $reader->value;
                                 }
+
                             }
                             if ($reader->nodeType == XMLReader::END_ELEMENT && $reader->localName == 'offer') {
                                 break;
                             }
                         } // сформирован массив для каждого узла
 
-                        Product::create([
-                            'name' => $offer['typeprefix'],
-                            'price' => $offer['price'],
-                        ]);
+                        Product::query()
+                            ->create([
+                                'name' => $offer['typeprefix'],
+                                'price' => $offer['price'],
+                            ]);
+                        $count++;
                     }
             }
-            $products = Product::all();
-            if (count($products) == 100) {
+            if ($count == 100) {
                 break;
             }
         }
